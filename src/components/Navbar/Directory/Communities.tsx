@@ -17,7 +17,7 @@ const Communities: React.FC<CommunitiesProps> = () => {
         onClick={() => setOpen(true)}
       >
         <Flex align="center">
-          <Icon as={GrAdd} fontSize={20} mr={2} />
+          <Icon as={GrAdd} fontSize={16} mr={2} />
           Create Community
         </Flex>
       </MenuItem>
