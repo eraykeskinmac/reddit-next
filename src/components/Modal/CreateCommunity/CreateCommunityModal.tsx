@@ -80,7 +80,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
         numberOfMembers: 1,
         privacyType: communityType,
       });
-    } catch (error) {
+    } catch (error: any) {
       console.log("handleCreateCommunity error", error);
       setError(error.message);
     }

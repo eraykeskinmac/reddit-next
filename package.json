@@ -16,6 +16,8 @@
     "@fontsource/open-sans": "^4.5.10",
     "bootstrap-icons": "^1.8.3",
     "firebase": "^9.8.2",
+    "firebase-functions": "^3.21.2",
+    "firebase-tools": "^11.1.0",
     "framer-motion": "^6",
     "next": "12.1.6",
     "react": "^18.1.0",
