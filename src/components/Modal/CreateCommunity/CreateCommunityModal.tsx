@@ -13,7 +13,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Stack,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import { doc, runTransaction, serverTimestamp } from "firebase/firestore";
 import React, { useState } from "react";
@@ -88,7 +88,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
           }
         );
       });
-    } catch (error) {
+    } catch (error: any) {
       console.log("handleCreateCommunity error", error);
       setError(error.message);
     }
