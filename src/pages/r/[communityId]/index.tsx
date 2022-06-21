@@ -1,5 +1,4 @@
 import { doc, getDoc } from "firebase/firestore";
-import { GetServerSidePropsContext } from "next";
 import React from "react";
 import safeJsonStringify from "safe-json-stringify";
 import { Community } from "../../../atoms/communitiesAtom";
