@@ -7,6 +7,7 @@ import { Post } from "../../atoms/postsAtom";
 import { auth, firestore } from "../../firebase/clientApp";
 import usePost from "../../hooks/usePost";
 import PostItem from "./PostItem";
+import PostLoader from "./PostLoader";
 
 type PostsProps = {
   communityData: Community;
@@ -14,7 +15,7 @@ type PostsProps = {
 
 const Posts: React.FC<PostsProps> = ({ communityData }) => {
   const [user] = useAuthState(auth);
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
   const {
     postStateValue,
     setPostStateValue,
@@ -25,6 +26,7 @@ const Posts: React.FC<PostsProps> = ({ communityData }) => {
 
   const getPosts = async () => {
     try {
+      setLoading(true);
       // get posts for this community
       const postQuery = query(
         collection(firestore, "posts"),
@@ -44,6 +46,7 @@ const Posts: React.FC<PostsProps> = ({ communityData }) => {
     } catch (error) {
       console.log("getPosts error", error.message);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -53,19 +56,26 @@ const Posts: React.FC<PostsProps> = ({ communityData }) => {
   }, []);
 
   return (
-    <Stack>
-      {postStateValue.posts.map((item) => (
-        // eslint-disable-next-line react/jsx-key
-        <PostItem
-          post={item}
-          userIsCreator={user?.uid === item.creatorId}
-          userVoteValue={undefined}
-          onVote={onVote}
-          onSelectPost={onSelectPost}
-          onDeletePost={onDeletePost}
-        />
-      ))}
-    </Stack>
+    <>
+      {loading ? (
+        <PostLoader />
+      ) : (
+        <Stack>
+          {postStateValue.posts.map((item) => (
+            // eslint-disable-next-line react/jsx-key
+            <PostItem
+              key={item.id}
+              post={item}
+              userIsCreator={user?.uid === item.creatorId}
+              userVoteValue={undefined}
+              onVote={onVote}
+              onSelectPost={onSelectPost}
+              onDeletePost={onDeletePost}
+            />
+          ))}
+        </Stack>
+      )}
+    </>
   );
 };
 export default Posts;
