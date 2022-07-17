@@ -49,12 +49,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   // get community data and  pass it  to client
 
   try {
-    const communityDocRef = doc(
-      firestore,
-      "communities",
-      context.query.communityId as string
+    const communityDoc = await getDoc(
+      doc(firestore, "communities", context.query.communityId as string)
     );
-    const communityDoc = await getDoc(communityDocRef);
 
     return {
       props: {
@@ -68,6 +65,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   } catch (error) {
     // Could add error page here.
     console.log("getServerSideProps error", error);
+    throw error;
   }
 }
 
